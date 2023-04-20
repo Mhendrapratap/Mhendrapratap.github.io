@@ -116,6 +116,97 @@ $(document).ready(function () {
         },
       });
     }
+  });
+
+  if (screen.width >= 501 && screen.width <= 690) {
+    document.getElementById("skills-content").innerHTML = "";
+    document.getElementById("skills-content").innerHTML = (skill1());
+  }
+  if (screen.width >= 691 && screen.width <= 947) {
+    document.getElementById("skills-content").innerHTML = "";
+    document.getElementById("skills-content").innerHTML = (skill2());
+  }
+  
+  //For getting the calendar data
+  GitHubCalendar(".calendar", "Mhendrapratap", { responsive: true ,tooltips: true});
+  
+  // total git commit Live data
+  
+  const sleep = (milliseconds) => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds))
+  }
+  sleep(100).then(() => {
+    let x = document.querySelector(".contrib-number").innerText;
+    
+    if(x>0)
+    {
+      window.location.reload();
+    }
+    
+    x = x.split(" ");
+    x = (+(x[0])--);
+    x = x - (x % 10);
+  
+    document.querySelector("#contrib-number").innerText = "";
+    document.querySelector("#contrib-number").innerText = x + "+";
+  })
+  
+  let x=false;
+  
+  project.forEach(function (data) {
+  
+    let card = document.createElement("div");
+    card.setAttribute("class", "card");
+  
+    let box = document.createElement("div");
+    box.setAttribute("class", "box");
+  
+    let img = document.createElement("img");
+    img.src = "/resources/" + data.Imag;
+    img.alt = data.project_title;
+  
+    let project_ditels = document.createElement("div");
+    project_ditels.setAttribute("class", "project-ditels");
+  
+    let project_title = document.createElement("h3");
+    project_title.setAttribute("class", "project-title");
+    project_title.innerText = data.ProjTitle;
+  
+    let p = document.createElement("p");
+    p.innerText = data.ProjDiscription;
+  
+    let h4 = document.createElement("h4");
+    h4.innerText = "Tech-Stack";
+  
+    let h5 = document.createElement("h5");
+    h5.innerText = data.TeachStack;
   
   
+    let li = document.createElement("li");
+    li.innerText = data.WorkDiscription;
+  
+    let btn = document.createElement("div");
+    btn.setAttribute("class", "btn");
+  
+  
+    let live = document.createElement("a");
+    live.href = data.live;
+    live.target = "_blank";
+    live.innerText = "LIVE ↗️";
+  
+    let github = document.createElement("a");
+    github.href = data.github;
+    github.target = "_blank";
+    github.innerText = " GITHUB ↗️";
+  
+    btn.append(live, github);
+    project_ditels.append(project_title, p, h4, h5, li, btn);
+  
+    box.append(img, project_ditels);
+  
+    card.append(box);
+  
+    // console.log(card);
+  
+    document.querySelector("#carousel").append(card);
   });
